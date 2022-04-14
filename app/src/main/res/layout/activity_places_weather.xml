@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.others.placesweather.PlacesWeatherActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/transparent">
+
+
+
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/placesViewPage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <RadioGroup
+        android:id="@+id/main_top_rg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/top_rg_first_place"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/top_r_bg"
+            android:checked="true"
+            android:gravity="center"
+
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/top_rg_second_place"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/top_r_bg2"
+            android:gravity="center" />
+
+        <RadioButton
+            android:id="@+id/top_rg_third_place"
+            android:layout_width="30dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/top_r_bg2"
+            android:gravity="center" />
+    </RadioGroup>
+
+
+</LinearLayout>

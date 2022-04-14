@@ -3,6 +3,8 @@
     package="com.example.sunnyweather">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".SunnyWeatherApplication"
@@ -13,8 +15,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SunnyWeather">
         <activity
-            android:name=".ui.weather.WeatherActivity"
+            android:name=".ui.others.slideslipmenu.SlideSlipMainActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.others.placesweather.PlacesWeatherActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.others.manageplaces.AddPlacesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.others.manageplaces.ManagePlacesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.others.WindDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.weather.WeatherActivity"
+            android:exported="true"
+            android:launchMode="singleTask" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

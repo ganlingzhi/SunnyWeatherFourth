@@ -1,5 +1,6 @@
 package com.example.sunnyweather.logic
 
+import android.util.Log
 import androidx.lifecycle.liveData
 import com.example.sunnyweather.logic.dao.PlaceDao
 import com.example.sunnyweather.logic.model.Place
@@ -13,6 +14,18 @@ import java.lang.RuntimeException
 import kotlin.coroutines.CoroutineContext
 
 object Repository {
+
+
+    fun searchNumberPlace(number: String) = fire(Dispatchers.IO){
+        val numberPlaceResponse = SunnyWeatherNetwork.getNumberPlace(number)
+        if (numberPlaceResponse.code == 0) {
+            Result.success(numberPlaceResponse.data.province + numberPlaceResponse.data.city)
+        } else {
+            Log.d("MainActivity", numberPlaceResponse.code.toString())
+
+            Result.failure(RuntimeException("response code is ${numberPlaceResponse.code}"))
+        }
+    }
 
     fun searchPlaces(query: String) = fire(Dispatchers.IO) {
 
@@ -69,4 +82,9 @@ object Repository {
     fun getSavedPlace() = PlaceDao.getSavedPlace()
 
     fun isPlaceSaved() = PlaceDao.isPlaceSaved()
+
+    fun addPlaceList(place: Place) = PlaceDao.addPlaceList(place)
+    fun getPlaceList() = PlaceDao.getPlaceList()
+    fun deletePlace(pos: Int) = PlaceDao.deletePlace(pos)
+
 }

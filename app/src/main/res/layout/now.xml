@@ -30,6 +30,14 @@
             android:singleLine="true"
             android:textColor="#fff"
             android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_more" />
     </FrameLayout>
 
     <LinearLayout

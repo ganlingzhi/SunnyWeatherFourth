@@ -1,4 +1,4 @@
-package com.example.sunnyweather.logic.model
+package com.example.sunnyweather.util
 
 import com.example.sunnyweather.R
 
