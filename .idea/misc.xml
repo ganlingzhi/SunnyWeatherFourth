@@ -5,6 +5,8 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_common_radius10.xml" value="0.24537037037037038" />
         <entry key="app/src/main/res/drawable/bg_common_radius10_green_border.xml" value="0.24537037037037038" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/drawable/ic_more.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/drawable/top_r_bg.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/drawable/top_r_bg_a.xml" value="0.21197916666666666" />
@@ -14,6 +16,7 @@
         <entry key="app/src/main/res/layout/activity_places_weather.xml" value="0.16994623081614824" />
         <entry key="app/src/main/res/layout/activity_slide_slip_main.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/activity_weather.xml" value="0.16927083333333334" />
+        <entry key="app/src/main/res/layout/activity_web_view.xml" value="0.2959333172909578" />
         <entry key="app/src/main/res/layout/activity_wind_dtails.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/dialog_contact_weather.xml" value="0.26748846415579874" />
         <entry key="app/src/main/res/layout/dialog_nc_bottomsheet_list_rich_style.xml" value="0.3333333333333333" />

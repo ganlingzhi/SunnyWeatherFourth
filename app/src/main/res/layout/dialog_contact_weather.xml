@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_common_radius10"
+    android:layout_height="270dp"
+    android:background="@drawable/bg_job_choose_type_bottom_entire"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
-            android:id="@+id/job_choose_bottom_item_close"
+            android:id="@+id/weather_bottom_item_close"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_gravity="center"
@@ -49,17 +49,17 @@
                 android:layout_width="92dp"
                 android:layout_height="92dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="13dp"
+
                 android:src="@drawable/ic_job_choose_first_item"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/job_choose_bottom_item_title"
+                android:id="@+id/contact_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="10dp"
                 android:text="联系人名字"
                 android:textColor="#ff555555"
                 android:textSize="18sp"
@@ -67,15 +67,26 @@
                 app:layout_constraintTop_toTopOf="@id/job_choose_bottom_item_image" />
 
             <TextView
-                android:id="@+id/job_choose_bottom_item_content"
+                android:id="@+id/contact_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
                 android:text="联系人电话"
+                android:textColor="#ff555555"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/contact_name"
+                app:layout_constraintTop_toBottomOf="@id/contact_name" />
+            <TextView
+                android:id="@+id/contact_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="联系人地址"
                 android:textColor="#A5A5A5"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@id/job_choose_bottom_item_title"
-                app:layout_constraintTop_toBottomOf="@id/job_choose_bottom_item_title" />
+
+                app:layout_constraintStart_toStartOf="@id/contact_name"
+                app:layout_constraintTop_toBottomOf="@id/contact_number"/>
 
             <ImageView
                 android:id="@+id/job_choose_bottom_item_bg"
@@ -86,14 +97,40 @@
                 app:layout_constraintRight_toRightOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:textSize="12sp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:textColor="#A5A5A5"
         android:text="由通话次数和通话时间推荐" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_close"
+            android:backgroundTint="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ff333333"
+            android:layout_weight="20"
+            android:text="取消"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/have_a_look_weather_details"
+            android:layout_weight="20"
+            android:backgroundTint="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ff333333"
+            android:text="查看该地区的天气" />
+    </LinearLayout>
 </LinearLayout>

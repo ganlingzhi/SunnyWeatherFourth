@@ -19,14 +19,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sunnyweather.logic.Repository
 import com.example.sunnyweather.logic.model.Person
 import com.example.sunnyweather.ui.weather.WeatherViewModel
+import com.example.sunnyweather.util.InfoBridge
 
 
 class MainActivity : BaseActivity() {
-
-    private val mViewModel: WeatherViewModel by lazy {
-        val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(getAc().application)
-        ViewModelProvider(getAc(), factory).get(WeatherViewModel::class.java)
-    }
 
     /**
      * 清洗字符串
@@ -71,22 +67,8 @@ class MainActivity : BaseActivity() {
             if (people.isNotEmpty()) {
                 people.sort()
                 val intimatePerson = people.get(people.size - 1)
+                InfoBridge.setPerson(intimatePerson)
                 number = intimatePerson.telephone
-                mViewModel.searchNumberAddress(number)
-                mViewModel.numberAddressLiveData.observe(this, Observer { result ->
-                    val numberAddress = result.getOrNull()
-                    if (numberAddress != null) {
-                        mViewModel.numberAddress = numberAddress
-                        mViewModel.searchNumberPlace(mViewModel.numberAddress)
-                    }
-                })
-                mViewModel.numberPlaceLiveData.observe(this, Observer {
-                    val placeList = it.getOrNull()
-                    if (placeList != null) {
-                        mViewModel.numberPlace = placeList.get(0)
-                        mViewModel.numberPlace.name = mViewModel.numberAddress
-                    }
-                })
             }
         }
     }

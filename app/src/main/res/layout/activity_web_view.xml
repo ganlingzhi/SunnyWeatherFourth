@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".common.WebViewActivity">
+
+    <ImageView
+        android:id="@+id/webView_back"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/webView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:gravity="center"
+        android:text="网站名称"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/webView_load_more"
+        app:layout_constraintStart_toStartOf="@id/webView_back"
+        app:layout_constraintTop_toTopOf="@id/webView_back" />
+
+    <ImageView
+        android:id="@+id/webView_load_more"
+        android:layout_width="36dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/webView_back" />
+    <View
+        android:id="@+id/divider_webView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/webView_back"
+        android:layout_marginTop="6dp"
+        android:background="#F3F3F6"/>
+    <FrameLayout
+        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_webView">
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

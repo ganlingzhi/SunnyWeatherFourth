@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -16,18 +15,17 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunnyweather.BaseActivity
 import com.example.sunnyweather.R
+import com.example.sunnyweather.common.WebViewActivity
 import com.example.sunnyweather.logic.model.Weather
-import com.example.sunnyweather.nc.JobBottomSheet
 import com.example.sunnyweather.ui.others.manageplaces.ManagePlacesActivity
-import com.example.sunnyweather.ui.others.WindDetailsActivity
 import com.example.sunnyweather.ui.others.placesweather.PlacesWeatherActivity
+import com.example.sunnyweather.util.InfoBridge
 import com.example.sunnyweather.util.WindUtil
 import com.example.sunnyweather.util.getSky
 import kotlinx.android.synthetic.main.activity_weather.*
@@ -40,7 +38,7 @@ import java.util.*
 
 class WeatherActivity : BaseActivity() {
 
-    val viewModel:WeatherViewModel by lazy {
+    val viewModel: WeatherViewModel by lazy {
         val factory = ViewModelProvider.AndroidViewModelFactory.getInstance(getAc().application)
         ViewModelProvider(getAc(), factory).get(WeatherViewModel::class.java)
     }
@@ -56,17 +54,7 @@ class WeatherActivity : BaseActivity() {
         setContentView(R.layout.activity_weather)
 
         getIntentString()
-
-        viewModel.weatherLiveData.observe(this, Observer { result ->
-            val weather = result.getOrNull()
-            if (weather != null) {
-                showWeatherInfo(weather)
-            } else {
-                Toast.makeText(this, "无法成功获取天气信息", Toast.LENGTH_SHORT).show()
-                result.exceptionOrNull()?.printStackTrace()
-            }
-            swipeRefresh.isRefreshing = false
-        })
+        iniLiveDataObserve()
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary)
         refreshWeather()
         swipeRefresh.setOnRefreshListener {
@@ -80,8 +68,7 @@ class WeatherActivity : BaseActivity() {
             popMenu()
         }
         moreWindyInfo.setOnClickListener {
-            val intent = Intent(this, WindDetailsActivity::class.java)
-            startActivity(intent)
+            WebViewActivity.openUrl(this, "https://docs.seniverse.com/product/data/wind.html")
         }
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
@@ -114,7 +101,36 @@ class WeatherActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
+    }
 
+    private fun iniLiveDataObserve() {
+        InfoBridge.searchNumberAddress(InfoBridge.intimatePerson.telephone)
+
+        InfoBridge.numberAddressLiveData.observe(this, Observer { result ->
+            val numberAddress = result.getOrNull()
+            if (numberAddress != null) {
+                InfoBridge.numberAddress = numberAddress
+                InfoBridge.searchNumberPlace(InfoBridge.numberAddress)
+            }
+        })
+        InfoBridge.numberPlaceLiveData.observe(this, Observer {
+            val placeList = it.getOrNull()
+            if (placeList != null) {
+                InfoBridge.numberPlace = placeList.get(0)
+                InfoBridge.numberPlace.name = InfoBridge.numberAddress
+                showBottomSheet()
+            }
+        })
+        viewModel.weatherLiveData.observe(this, Observer { result ->
+            val weather = result.getOrNull()
+            if (weather != null) {
+                showWeatherInfo(weather)
+            } else {
+                Toast.makeText(this, "无法成功获取天气信息", Toast.LENGTH_SHORT).show()
+                result.exceptionOrNull()?.printStackTrace()
+            }
+            swipeRefresh.isRefreshing = false
+        })
     }
 
     override fun onBackPressed() {
@@ -128,16 +144,28 @@ class WeatherActivity : BaseActivity() {
     }
 
     private fun showBottomSheet() {
-
+        WeatherBottomSheet.showBottomSheet(
+            this,
+            InfoBridge.intimatePerson.name,
+            InfoBridge.intimatePerson.telephone,
+            InfoBridge.numberAddress,
+            InfoBridge.numberPlace
+        ) {
+            if (it != null) {
+                viewModel.refreshWeather(
+                    InfoBridge.numberPlace.location.lng,
+                    InfoBridge.numberPlace.location.lat
+                )
+                viewModel.placeName = InfoBridge.numberAddress
+                swipeRefresh.isRefreshing = true
+            }
+        }
     }
-
-
-
     private fun popMenu() {
         val popupMenu = PopupMenu(this, setting)
         popupMenu.inflate(R.menu.setting_options)
         popupMenu.show()
-        popupMenu.setOnMenuItemClickListener{ item: MenuItem ->
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.manage_place -> {
                     val intent = Intent(this, ManagePlacesActivity::class.java)
@@ -164,6 +192,7 @@ class WeatherActivity : BaseActivity() {
     fun refreshWeather() {
         viewModel.refreshWeather(viewModel.locationLng, viewModel.locationLat)
         swipeRefresh.isRefreshing = true
+
     }
 
     private fun getIntentString() {
